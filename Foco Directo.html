@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Foco Directo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@500;700&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0B2545;--bg:#FFFFFF;--surface:#F3F6FA;--ink:#14213D;--muted:#52627A;--line:#D9E0EA;--accent:#E8700A;--ok:#17704F;--dev:#B85A00;--bad:#B3261E;--head:#0B2545;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0A1730;--surface:#10213F;--ink:#EAF0F8;--muted:#A3B2C7;--line:#223559;--accent:#FF9A3D;--ok:#4CC38A;--dev:#FFB066;--bad:#FF7B72;--head:#07142B}}
+:root[data-theme="dark"]{--bg:#0A1730;--surface:#10213F;--ink:#EAF0F8;--muted:#A3B2C7;--line:#223559;--accent:#FF9A3D;--ok:#4CC38A;--dev:#FFB066;--bad:#FF7B72;--head:#07142B}
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--head);scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.55 "Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 1rem}
+header{background:var(--head);color:#fff;padding:1.1rem 0 0}
+.brand{display:flex;align-items:center;gap:.75rem}
+.brand svg{width:44px;height:44px;flex:none}
+.brand h1{font:700 1.7rem/1.1 Newsreader,Georgia,serif;margin:0;letter-spacing:.01em}
+.brand p{margin:.15rem 0 0;color:#C9D6E8;font-size:.9rem}
+.today{margin:.9rem 0 0;color:#9FB2CC;font-size:.82rem;text-transform:capitalize}
+nav{margin-top:.6rem;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav .wrap{display:flex;gap:.25rem;padding-bottom:0}
+nav button{flex:none;background:none;border:0;border-bottom:4px solid transparent;color:#C9D6E8;font:600 .95rem "Public Sans",sans-serif;padding:.8rem .8rem .65rem;cursor:pointer;min-height:44px}
+nav button:hover{color:#fff}
+nav button[aria-pressed="true"]{color:#fff;border-bottom-color:var(--accent)}
+.demo{background:var(--surface);border-bottom:1px solid var(--line);font-size:.85rem;color:var(--muted);padding:.55rem 0}
+main{padding:1.5rem 0 2.5rem}
+h2.section{font:700 1.5rem/1.2 Newsreader,Georgia,serif;margin:0 0 1rem}
+.hero{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:2rem;background:var(--surface)}
+.hero-top{padding:1.25rem 1.1rem 1rem}
+.cat{font-weight:700;font-size:.85rem;color:var(--accent);margin:0 0 .4rem}
+.hero h2{font:700 clamp(1.7rem,6vw,2.6rem)/1.12 Newsreader,Georgia,serif;margin:.2rem 0 .7rem;max-width:22ch}
+.hero .sum{font-size:1.05rem;max-width:62ch;margin:0 0 .8rem}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .8rem;color:var(--muted);font-size:.85rem}
+.panel{display:grid;grid-template-columns:1fr;border-top:1px solid var(--line)}
+.col{padding:1rem 1.1rem;border-top:5px solid var(--c);background:var(--bg)}
+.col+.col{border-left:0}
+.col h3{margin:0 0 .5rem;font-size:1rem;color:var(--c)}
+.col ul{margin:0;padding-left:1.1rem;font-size:.93rem}
+.col li{margin-bottom:.45rem}
+.col.ok{--c:var(--ok)}.col.dev{--c:var(--dev)}.col.bad{--c:var(--bad)}
+.badge{display:inline-flex;align-items:center;gap:.3rem;border:1.5px solid var(--c);color:var(--c);border-radius:999px;padding:.1rem .6rem;font-weight:600;font-size:.8rem}
+.badge.ok{--c:var(--ok)}.badge.dev{--c:var(--dev)}.badge.bad{--c:var(--bad)}
+.grid{display:grid;grid-template-columns:1fr;gap:1rem}
+.card{border:1px solid var(--line);border-radius:8px;padding:1rem;background:var(--bg);display:flex;flex-direction:column;gap:.5rem}
+.card h3{font:700 1.25rem/1.2 Newsreader,Georgia,serif;margin:0}
+.card p{margin:0;font-size:.95rem}
+details{margin-top:auto;border-top:1px solid var(--line);padding-top:.6rem}
+summary{cursor:pointer;font-weight:600;font-size:.9rem;min-height:32px;display:flex;align-items:center}
+details ul{list-style:none;margin:.5rem 0 0;padding:0;font-size:.9rem}
+details li{padding:.5rem 0;border-bottom:1px dashed var(--line)}
+details li:last-child{border:0}
+details a{font-weight:600;color:var(--navy);text-decoration-color:var(--accent);text-underline-offset:3px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) details a{color:#fff}}
+:root[data-theme="dark"] details a{color:#fff}
+.src{color:var(--muted);display:block}
+.empty{color:var(--muted)}
+footer{background:var(--head);color:#C9D6E8;padding:1.5rem 0 1.8rem;font-size:.88rem}
+footer strong{color:#fff}
+@media (min-width:720px){
+.wrap{padding:0 1.5rem}
+.hero-top{padding:2rem 2rem 1.5rem}
+.panel{grid-template-columns:repeat(3,1fr)}
+.col{padding:1.25rem 1.5rem}
+.col+.col{border-left:1px solid var(--line)}
+.grid{grid-template-columns:repeat(2,1fr)}
+.today{position:absolute;right:1.5rem;top:1.4rem;margin:0}
+header .wrap{position:relative}
+}
+@media (min-width:980px){.grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 44 44" aria-hidden="true"><g stroke="#8FA8C8" stroke-width="2" stroke-linecap="round"><path d="M3 8 L22 22"/><path d="M3 22 L22 22"/><path d="M3 36 L22 22"/></g><circle cx="22" cy="22" r="7" fill="#E8700A"/><circle cx="22" cy="22" r="12" fill="none" stroke="#E8700A" stroke-width="2.5"/><path d="M34 22 H42" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>
+      <div><h1>Foco Directo</h1><p>Todas las fuentes. Una historia.</p></div>
+    </div>
+    <p class="today" id="today"></p>
+  </div>
+  <nav aria-label="Categorías"><div class="wrap" id="tabs"></div></nav>
+</header>
+<div class="demo"><div class="wrap">Versión de demostración: las noticias, los medios y los enlaces son ejemplos inventados.</div></div>
+<main><div class="wrap" id="view"></div></main>
+<footer><div class="wrap"><strong>Foco Directo</strong><br>Resumimos con palabras propias y enlazamos siempre a la fuente original. Cada historia indica qué está confirmado, qué sigue en desarrollo y qué se contradice.</div></footer>
+
+<script>
+const CATS=["Portada","España","Internacional","Política","Economía","Tecnología","Deportes"];
+const ST={ok:["✔","Confirmado"],dev:["◔","En desarrollo"],bad:["⚠","Contradictorio"]};
+const L="https://example.com";
+const S=[
+{id:1,cat:"España",st:"dev",date:"15 oct 2026",title:"Un temporal obliga a cortar tres carreteras en el norte",sum:"Las lluvias intensas han dejado cortes de tráfico en tres vías. Los servicios de emergencia trabajan en la zona y esperan reabrir una de ellas en las próximas horas.",
+ src:[["Diario Norte","Tres carreteras cerradas y 12 personas atendidas"],["Agencia Sur","Cierres en el norte y 30 personas atendidas"],["Radio Cantábrica","Reapertura parcial prevista para mañana"]],
+ ok:["Tres carreteras permanecen cortadas al tráfico.","Los equipos de emergencia están desplegados."],dev:["Una de las vías podría reabrir mañana, según Radio Cantábrica.","La previsión de lluvia sigue en alerta naranja."],bad:["Personas atendidas: 12 según Diario Norte y 30 según Agencia Sur."]},
+{id:2,cat:"Internacional",st:"dev",date:"15 oct 2026",title:"La cumbre climática cierra con un acuerdo parcial sobre financiación",sum:"Los delegados pactan un marco inicial de ayudas, pero los detalles de quién aporta y cuánto quedan para una nueva ronda.",src:[["Gaceta Global","Acuerdo parcial tras una noche de negociación"],["El Observador","Los países ricos aplazan las cifras concretas"]]},
+{id:3,cat:"Política",st:"dev",date:"14 oct 2026",title:"El Congreso abre el debate de una reforma de transparencia",sum:"Los grupos presentan enmiendas a una ley que ampliaría la información pública obligatoria. La votación final aún no tiene fecha.",src:[["Diario Capital","Primeras enmiendas de los grupos"],["Crónica Política","Sin fecha para la votación final"]]},
+{id:4,cat:"Economía",st:"ok",date:"14 oct 2026",title:"La inflación se modera una décima en septiembre",sum:"El dato preliminar apunta a una ligera bajada de precios, impulsada sobre todo por la energía y los alimentos frescos.",src:[["Economía Hoy","Los precios suben una décima menos"],["Mercados al Día","La energía frena el IPC"],["Boletín Oficial de Datos","Cifra preliminar publicada"]]},
+{id:5,cat:"Tecnología",st:"ok",date:"13 oct 2026",title:"Una empresa europea presenta un chip de bajo consumo para móviles",sum:"El nuevo procesador promete más horas de batería sin perder potencia. Llegaría a los primeros teléfonos el próximo año.",src:[["Byte Diario","Presentación del nuevo chip"],["Circuito Digital","Más batería con el mismo rendimiento"]]},
+{id:6,cat:"Deportes",st:"bad",date:"13 oct 2026",title:"Un equipo de Segunda remonta y pasa a cuartos de Copa",sum:"La victoria clasifica al equipo para la siguiente ronda. Los medios no coinciden en el minuto del gol decisivo.",src:[["Marca Deportiva","Gol de la victoria en el minuto 88"],["Diario del Balón","Gol de la victoria en el minuto 91"],["Radio Estadio","Remontada en la segunda parte"]]},
+{id:7,cat:"España",st:"dev",date:"12 oct 2026",title:"Una región estudia transporte público gratuito para jóvenes",sum:"El plan cubriría autobús y tren de cercanías para menores de 26 años. Falta concretar su coste y cuándo empezaría.",src:[["Diario Regional","El gobierno regional presenta el plan"],["Voz del Transporte","Sin coste cerrado todavía"]]},
+{id:8,cat:"Internacional",st:"ok",date:"12 oct 2026",title:"Dos bloques regionales firman un acuerdo comercial",sum:"El pacto reduce aranceles en productos agrícolas e industriales y entrará en vigor tras su ratificación.",src:[["Gaceta Global","Firma del acuerdo comercial"],["Comercio Mundial","Qué productos bajan sus aranceles"]]},
+{id:9,cat:"Tecnología",st:"ok",date:"11 oct 2026",title:"Un fallo en un servicio en la nube deja webs caídas durante una hora",sum:"La empresa atribuye la incidencia a un error de configuración y asegura que ya funciona con normalidad.",src:[["Byte Diario","Webs caídas por un fallo en la nube"],["Redes y Sistemas","La empresa explica la causa"]]}
+];
+const badge=s=>`<span class="badge ${s}">${ST[s][0]} ${ST[s][1]}</span>`;
+const srcList=x=>`<details><summary>Comparar versiones (${x.src.length} medios)</summary><ul>${x.src.map(s=>`<li><span class="src">${s[0]}</span><a href="${L}" target="_blank" rel="noopener noreferrer">${s[1]}</a></li>`).join("")}</ul></details>`;
+const card=x=>`<article class="card"><p class="cat">${x.cat}</p><h3>${x.title}</h3><p>${x.sum}</p><div class="meta">${badge(x.st)}<span>${x.date}</span></div>${srcList(x)}</article>`;
+const col=(k,t,a)=>`<div class="col ${k}"><h3>${t}</h3><ul>${a.map(i=>`<li>${i}</li>`).join("")}</ul></div>`;
+function hero(x){return `<section class="hero" aria-label="Noticia principal"><div class="hero-top"><p class="cat">${x.cat}</p><h2>${x.title}</h2><p class="sum">${x.sum}</p><div class="meta">${badge(x.st)}<span>${x.date}</span><span>${x.src.length} medios comparados</span></div></div><div class="panel">${col("ok","✔ Confirmado",x.ok)}${col("dev","◔ En desarrollo",x.dev)}${col("bad","⚠ Contradictorio",x.bad)}</div><div class="hero-top" style="padding-top:.5rem">${srcList(x)}</div></section>`}
+function render(cat){
+  const v=document.getElementById("view");
+  if(cat==="Portada"){v.innerHTML=hero(S[0])+`<h2 class="section">Últimas historias</h2><div class="grid">${S.slice(1).map(card).join("")}</div>`}
+  else{const l=S.filter(x=>x.cat===cat);v.innerHTML=`<h2 class="section">${cat}</h2>`+(l.length?`<div class="grid">${l.map(card).join("")}</div>`:`<p class="empty">Todavía no hay historias en esta categoría.</p>`)}
+  document.querySelectorAll("#tabs button").forEach(b=>b.setAttribute("aria-pressed",b.textContent===cat));
+}
+const tabs=document.getElementById("tabs");
+CATS.forEach(c=>{const b=document.createElement("button");b.textContent=c;b.onclick=()=>render(c);tabs.appendChild(b)});
+document.getElementById("today").textContent=new Intl.DateTimeFormat("es-ES",{dateStyle:"full"}).format(new Date());
+render("Portada");
+</script>
+</body>
+</html>
